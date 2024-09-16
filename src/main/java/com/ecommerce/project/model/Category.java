@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,30 +22,7 @@ public class Category {
     private Long categoryId;
 
     @NotBlank
+    @Size(min=5,message = "Category name should at least of 5 character")
     private String categoryName;
 
-//    public Category(Long categoryId, String categoryName) {
-//        this.categoryId = categoryId;
-//        this.categoryName = categoryName;
-//    }
-//
-//    public Category() {
-//
-//    }
-//
-//    public Long getCategoryId() {
-//        return categoryId;
-//    }
-//
-//    public void setCategoryId(Long categoryId) {
-//        this.categoryId = categoryId;
-//    }
-//
-//    public String getCategoryName() {
-//        return categoryName;
-//    }
-//
-//    public void setCategoryName(String categoryName) {
-//        this.categoryName = categoryName;
-//    }
 }
