@@ -3,7 +3,6 @@ package com.ecommerce.project.service;
 import com.ecommerce.project.exceptions.ResourceNotFoundException;
 import com.ecommerce.project.model.Category;
 import com.ecommerce.project.model.Product;
-import com.ecommerce.project.payload.CategoryDTO;
 import com.ecommerce.project.payload.ProductDTO;
 import com.ecommerce.project.payload.ProductResponse;
 import com.ecommerce.project.repositories.CategoryRepository;
@@ -62,5 +61,26 @@ public class ProductServiceImpl implements ProductService {
         ProductResponse productResponse = new ProductResponse();
         productResponse.setContent(productDTOS);
         return productResponse;
+    }
+
+    @Override
+    public ProductDTO updateProduct(Product product, Long productId) {
+        Product currentProduct=productRepository.findById(productId).orElseThrow(()->new ResourceNotFoundException("Product","productId",productId));
+        currentProduct.setProductName(product.getProductName());
+        currentProduct.setDescription(product.getDescription());
+        currentProduct.setPrice(product.getPrice());
+        currentProduct.setDiscount(product.getDiscount());
+        currentProduct.setQuantity(product.getQuantity());
+        currentProduct.setSpecialPrice(product.getSpecialPrice());
+        Product updatedProduct=productRepository.save(currentProduct);
+        return modelMapper.map(updatedProduct,ProductDTO.class);
+    }
+
+    @Override
+    public ProductDTO deleteProduct(Long productId) {
+        Product existingProduct=productRepository.findById(productId).orElseThrow(()->new ResourceNotFoundException("Product","productId",productId));
+        ProductDTO deleteProductDTO=modelMapper.map(existingProduct,ProductDTO.class);
+        productRepository.delete(existingProduct);
+        return deleteProductDTO;
     }
 }
