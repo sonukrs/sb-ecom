@@ -5,20 +5,20 @@ import com.ecommerce.project.payload.ProductResponse;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.List;
 
 public interface ProductService {
     ProductDTO addProduct(ProductDTO product, Long categoryId);
 
-    List<ProductDTO> getAllProducts();
+    ProductResponse getAllProducts(Integer pageNumber, Integer pageSize, String sortBy, String sortOrder);
 
-    ProductResponse getProductByCategory(Long categoryId);
+    ProductResponse getProductByCategory(Long categoryId, Integer pageNumber, Integer pageSize, String sortBy, String sortOrder);
 
-    ProductResponse getProductByKeyword(String keyword);
+    ProductResponse getProductByKeyword(String keyword, Integer pageNumber, Integer pageSize, String sortBy, String sortOrder);
 
     ProductDTO updateProduct(ProductDTO product, Long productId);
 
     ProductDTO deleteProduct(Long productId);
 
     ProductDTO updateProductImage(Long productId, MultipartFile image) throws IOException;
+
 }
